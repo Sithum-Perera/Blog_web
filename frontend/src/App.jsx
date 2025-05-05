@@ -7,6 +7,7 @@ import SingleBlog from "./pages/SingleBlog";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/register" element={<Signup />} />
         <Route path="/blog/:id" element={<SingleBlog />} />
       </Routes>
+      <Footer/>
     </div>
   );
 };

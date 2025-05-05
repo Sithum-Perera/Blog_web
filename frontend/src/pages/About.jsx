@@ -20,7 +20,6 @@ function About() {
       <div>
         <img src={assets.about} alt=""/>
       </div>
-      <Footer/>
     </div>
   );
 }

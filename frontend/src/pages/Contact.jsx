@@ -20,7 +20,6 @@ function Contact() {
       <div>
         <img src={assets.contact} alt=""/>
       </div>
-      <Footer/>
     </div>
   );
 }

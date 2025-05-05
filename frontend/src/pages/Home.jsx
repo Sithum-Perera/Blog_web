@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 function Home() {
   return (
-    <div><Hero/><LatestBlogs/><Footer/></div>
+    <div><Hero/><LatestBlogs/></div>
   )
 }
 

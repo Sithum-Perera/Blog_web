@@ -17,7 +17,7 @@ function Navbar() {
           <Link to='/about' className='cursor-pointer hover:text-green-400'>ABOUT</Link>
           <Link to='/contact' className='cursor-pointer hover:text-green-400'>CONTACT</Link>
         </ul>
-        <Link className='bg-green-500 text-white px-8 py-2 rounded-full cursor-pointer hover:bg-green-600 duration-300'>Sign In</Link>
+        <Link to={'/login'} className='bg-green-500 text-white px-8 py-2 rounded-full cursor-pointer hover:bg-green-600 duration-300'>Sign In</Link>
       </div>
     </nav>
   )

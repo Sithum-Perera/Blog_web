@@ -25,7 +25,6 @@ function Blogs() {
           />
         ))}
       </div>
-      <Footer/>
     </div>
   );
 }
