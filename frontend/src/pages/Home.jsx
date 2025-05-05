@@ -1,8 +1,11 @@
 import React from 'react'
+import Hero from '../components/Hero';
+import LatestBlogs from '../components/LatestBlogs';
+import Footer from '../components/Footer';
 
 function Home() {
   return (
-    <div>Home</div>
+    <div><Hero/><LatestBlogs/><Footer/></div>
   )
 }
 
