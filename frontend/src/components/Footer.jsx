@@ -53,11 +53,11 @@ function Footer() {
         </div>
       </div>
       <hr className="h-0.5 text-gray-600 bg-gray-700 w-full" />
-      <div className="flex justify-between items-center my-6">
+      <div className="flex justify-between flex-col sm:flex-row items-center my-6">
         <div className="flex gap-2 items-center justify-center">
             <img src={assets.logo} alt="" className="w-[50px] h-[20px]" />
         </div>
-        <ul className="flex gap-3">
+        <ul className="flex gap-3 flex-col sm:flex-row items-center">
             <li>Privacy Policy</li>
             <li>Terms and Condition</li>
             <li>Copyright @code catch me</li>

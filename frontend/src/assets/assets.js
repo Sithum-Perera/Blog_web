@@ -33,10 +33,10 @@ export const blogData = [
     description:
       "AI is changing the way we build websites. Learn how AI-driven tools can help developers create better web applications.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 25, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 2,
@@ -46,10 +46,10 @@ export const blogData = [
     description:
       "Learn the key strategies that successful startups are using to scale their businesses in a competitive market.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 22, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 3,
@@ -59,10 +59,10 @@ export const blogData = [
     description:
       "Discover simple yet effective ways to improve your health and well-being with small daily habits.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 18, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 4,
@@ -72,10 +72,10 @@ export const blogData = [
     description:
       "Understand the basics of investing and how you can start building wealth with smart financial decisions.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 15, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 5,
@@ -85,10 +85,10 @@ export const blogData = [
     description:
       "A list of top-rated online courses that can help you become a web developer in 2025.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 10, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 6,
@@ -98,10 +98,10 @@ export const blogData = [
     description:
       "Explore the most beautiful and trending travel destinations you should visit this year.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 5, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 7,
@@ -111,10 +111,10 @@ export const blogData = [
     description:
       "Learn how to prepare healthy and delicious meals even with a busy schedule.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "March 2, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 8,
@@ -124,10 +124,10 @@ export const blogData = [
     description:
       "Discover how blockchain technology is revolutionizing the way we conduct financial transactions.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "February 28, 2025",
+    date: "May 1, 2025",
   },
   {
     id: 9,
@@ -137,9 +137,11 @@ export const blogData = [
     description:
       "Learn productivity hacks and time management techniques to maximize efficiency at home.",
     author: {
-      name: "John Doe",
+      name: "Sithum Perera",
       image: author,
     },
-    date: "February 25, 2025",
+    date: "May 1, 2025",
   },
 ];
+
+
