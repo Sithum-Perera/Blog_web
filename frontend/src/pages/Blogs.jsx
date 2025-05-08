@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Hero from "../components/Hero";
 import BlogCard from "../components/BlogCard";
-import Footer from "../components/Footer";
 import  {StoreContext}  from "../context/StoreContext";
 
 function Blogs() {
