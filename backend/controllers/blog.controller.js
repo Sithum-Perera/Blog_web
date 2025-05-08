@@ -33,6 +33,51 @@ export const createBlog = async (req, res) => {
   }
 };
 
+export const editBlog = async (req, res) => {
+  try {
+    const { title, category, description } = req.body;
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found", success: false });
+    }
+
+    if (blog.author.id.toString() !== req.user.id.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to edit this blog",
+        success: false,
+      });
+    }
+
+    // If a new image was uploaded
+    if (req.file) {
+      // Delete old image
+      if (blog.image) {
+        fs.unlink(`uploads/${blog.image}`, (err) => {
+          if (err) console.log("Failed to delete old image:", err);
+        });
+      }
+      blog.image = req.file.filename;
+    }
+
+    // Update fields
+    blog.title = title || blog.title;
+    blog.category = category || blog.category;
+    blog.description = description || blog.description;
+
+    await blog.save();
+
+    return res
+      .status(200)
+      .json({ message: "Blog updated successfully", success: true, blog });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error", success: false });
+  }
+};
+
+
 export const deleteBlog = async (req, res) => {
   const blog = await Blog.findById(req.params.id);
   fs.unlink(`uploads/${blog.image}`, () => {});

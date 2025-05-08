@@ -17,11 +17,11 @@ const LatestBlogs = () => {
               key={index}
               id={blog._id}
               title={blog.title}
-              image={blog.image}
+              image={`http://localhost:4000/images/${blog.image}`}
               category={blog.category}
               author_name={blog.author.name}
-              author_image={blog.author.image}
-              date={blog.createdAt}
+              author_image={`http://localhost:4000/images/${blog.author.image}`}
+              date={new Date(blog.createdAt).toLocaleDateString()}
             />
           ))}
       </div>
