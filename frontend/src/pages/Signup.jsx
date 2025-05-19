@@ -33,25 +33,29 @@ function Signup() {
       data.append("name", formData.name);
       data.append("email", formData.email);
       data.append("password", formData.password);
-      data.append("image", formData.image);
+      data.append("image", formData.image);  // Make sure formData.image is a File object
+  
       setLoading(true);
-
+  
+      // Here you should send 'data' not 'formData'!
       const res = await axios.post("http://localhost:4000/user/register", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-
+  
       if (res.data.success) {
         toast.success(res.data.message);
         navigate("/login");
       }
     } catch (error) {
-      toast.error(error.message);
+      console.error(error.response?.data || error.message);
+      toast.error(error.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="w-full bg-green-200 py-12 mx-auto flex items-center justify-center">
@@ -104,7 +108,6 @@ function Signup() {
             className="w-full p-2 border border-gray-300 rounded outline-none"
             required
           />
-          
           <button
             type="submit"
             disabled={loading}

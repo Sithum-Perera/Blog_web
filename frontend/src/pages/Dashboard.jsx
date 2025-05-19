@@ -39,15 +39,29 @@ const Dashboard = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/blog/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setBlogs(res.data.blogs);
-      setFilteredBlogs(res.data.blogs);
+      // Fetch user info (e.g. from localStorage or API)
+      const user = JSON.parse(localStorage.getItem("user")); // Assuming you store user info on login
+  
+      if (user?.email === "admin@gmail.com") {
+        // Admin: fetch all blogs
+        const res = await axios.get("http://localhost:4000/blog/all", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setBlogs(res.data.blogs);
+        setFilteredBlogs(res.data.blogs);
+      } else {
+        // Normal user: fetch only their blogs
+        const res = await axios.get("http://localhost:4000/blog/myblogs", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setBlogs(res.data.blogs);
+        setFilteredBlogs(res.data.blogs);
+      }
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   useEffect(() => {
     fetchBlogs();

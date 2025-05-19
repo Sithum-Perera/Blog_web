@@ -1,6 +1,7 @@
 import Blog from "../models/blog.model.js";
 import fs from "fs";
 
+// Get all blogs
 export const allBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find({}).sort({ createdAt: -1 });
@@ -10,10 +11,12 @@ export const allBlogs = async (req, res) => {
   }
 };
 
+// Create a new blog
 export const createBlog = async (req, res) => {
   try {
     const { title, category, description } = req.body;
-    const image_filename = `${req.file.filename}`;
+    const image_filename = req.file?.filename;
+
     const blog = await Blog.create({
       title,
       category,
@@ -25,14 +28,14 @@ export const createBlog = async (req, res) => {
         image: req.user.image,
       },
     });
-    return res
-      .status(201)
-      .json({ message: "blog created", success: true, blog });
+
+    return res.status(201).json({ message: "Blog created", success: true, blog });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
+// Edit blog
 export const editBlog = async (req, res) => {
   try {
     const { title, category, description } = req.body;
@@ -49,9 +52,8 @@ export const editBlog = async (req, res) => {
       });
     }
 
-    // If a new image was uploaded
+    // If new image uploaded
     if (req.file) {
-      // Delete old image
       if (blog.image) {
         fs.unlink(`uploads/${blog.image}`, (err) => {
           if (err) console.log("Failed to delete old image:", err);
@@ -60,16 +62,14 @@ export const editBlog = async (req, res) => {
       blog.image = req.file.filename;
     }
 
-    // Update fields
+    // Update blog fields
     blog.title = title || blog.title;
     blog.category = category || blog.category;
     blog.description = description || blog.description;
 
     await blog.save();
 
-    return res
-      .status(200)
-      .json({ message: "Blog updated successfully", success: true, blog });
+    return res.status(200).json({ message: "Blog updated successfully", success: true, blog });
 
   } catch (error) {
     console.log(error);
@@ -77,46 +77,72 @@ export const editBlog = async (req, res) => {
   }
 };
 
-
+// ✅ Fixed deleteBlog function
 export const deleteBlog = async (req, res) => {
-  const blog = await Blog.findById(req.params.id);
-  fs.unlink(`uploads/${blog.image}`, () => {});
-  if (!blog) {
-    return res.status(404).json({ message: "blog not found", success: false });
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found", success: false });
+    }
+
+    if (blog.author.id.toString() !== req.user.id.toString()) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to delete this blog", success: false });
+    }
+
+    // Delete image if exists
+    if (blog.image) {
+      fs.unlink(`uploads/${blog.image}`, (err) => {
+        if (err) {
+          console.error("Failed to delete image:", err);
+        }
+      });
+    }
+
+    await blog.deleteOne();
+
+    return res.status(200).json({ message: "Blog deleted successfully", success: true });
+  } catch (error) {
+    console.error("Delete blog error:", error);
+    return res.status(500).json({ message: "Internal server error", success: false });
   }
-  if (blog.author.id.toString() !== req.user.id.toString()) {
-    return res
-      .status(403)
-      .json({ message: "Not authorized to delete this blog", success: false });
-  }
-  await blog.deleteOne();
-  return res
-    .status(404)
-    .json({ message: "blog deleted successfully", success: true });
 };
 
+// Get a single blog
 export const singleBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
-    return res
-      .status(200)
-      .json({ message: "blog  found", success: true, blog });
+    return res.status(200).json({ message: "Blog found", success: true, blog });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "internal server error", success: false });
+    return res.status(500).json({ message: "Internal server error", success: false });
   }
 };
 
+// Get blogs by user
 export const userBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find({ "author.id": req.user._id }).sort({
-      createdAt: -1,
+    const blogs = await Blog.find({ "author.id": req.user._id }).sort({ createdAt: -1 });
+    res.status(200).json({
+      success: true,
+      message: "User's blogs retrieved successfully",
+      blogs,
     });
-    res.status(200).json(blogs);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "internal server error", success: false });
+    return res.status(500).json({ message: "Internal server error", success: false });
+  }
+};
+
+export const getMyBlogs = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming auth middleware attaches `user` to `req`
+
+    const myBlogs = await Blog.find({ author: userId });
+
+    res.status(200).json({ blogs: myBlogs });
+  } catch (error) {
+    console.error("Error fetching user's blogs:", error);
+    res.status(500).json({ message: "Failed to fetch your blogs" });
   }
 };
